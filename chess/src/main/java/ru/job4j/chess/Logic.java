@@ -2,6 +2,7 @@ package ru.job4j.chess;
 
 import ru.job4j.chess.firuges.Cell;
 import ru.job4j.chess.firuges.Figure;
+import ru.job4j.chess.firuges.black.BishopBlack;
 
 import java.util.Arrays;
 import java.util.Optional;
@@ -21,15 +22,37 @@ public class Logic {
         this.figures[this.index++] = figure;
     }
 
-    public boolean move(Cell source, Cell dest) {
-        boolean rst = false;
+    public boolean freeWay(Cell source, Cell dest) {
+        boolean result = true;
         int index = this.findBy(source);
         if (index != -1) {
             Cell[] steps = this.figures[index].way(source, dest);
-            if (steps.length > 0 && steps[steps.length - 1].equals(dest)) {
-                rst = true;
-                this.figures[index] = this.figures[index].copy(dest);
+            for (int i = 1; i < steps.length; ++i) {
+                for (int j = 0; j < this.figures.length; ++j) {
+                    if (figures[j].position().equals(steps[i])) {
+                        i = steps.length;
+                        result = false;
+                        break;
+                    }
+                }
             }
+        }
+        return result;
+    }
+
+    public boolean move(Cell source, Cell dest) {
+        boolean rst = false;
+        try {
+            int index = this.findBy(source);
+            if (index != -1) {
+                Cell[] steps = this.figures[index].way(source, dest);
+                if (steps.length > 0 && steps[steps.length - 1].equals(dest) && freeWay(source, dest)) {
+                    rst = true;
+                    this.figures[index] = this.figures[index].copy(dest);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return rst;
     }
