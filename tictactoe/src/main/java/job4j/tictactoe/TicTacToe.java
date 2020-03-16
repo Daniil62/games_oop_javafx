@@ -32,7 +32,6 @@ public class TicTacToe extends Application {
         rect.setStroke(Color.BLACK);
         return rect;
     }
-
     private Group buildMarkO(double x, double y, int size) {
         Group group = new Group();
         int radius = size / 2;
@@ -42,7 +41,6 @@ public class TicTacToe extends Application {
         group.getChildren().add(circle);
         return group;
     }
-
     private void showAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle(JOB4J);
@@ -50,7 +48,6 @@ public class TicTacToe extends Application {
         alert.setContentText(message);
         alert.showAndWait();
     }
-
     private boolean checkState() {
         boolean gap = this.logic.hasGap();
         if (!gap) {
@@ -58,7 +55,6 @@ public class TicTacToe extends Application {
         }
         return gap;
     }
-
     private void checkWinner() {
         if (this.logic.isWinnerX()) {
             this.showAlert("Победили Крестики! Начните новую Игру!");
@@ -66,7 +62,6 @@ public class TicTacToe extends Application {
             this.showAlert("Победили Нолики! Начните новую Игру!");
         }
     }
-
     private Group buildMarkX(double x, double y, int size) {
         Group group = new Group();
         group.getChildren().addAll(
@@ -81,7 +76,6 @@ public class TicTacToe extends Application {
         );
         return group;
     }
-
     private EventHandler<MouseEvent> buildMouseEvent(Group panel) {
         return event -> {
             Figure3T rect = (Figure3T) event.getTarget();
@@ -102,7 +96,6 @@ public class TicTacToe extends Application {
             }
         };
     }
-
     private Group buildGrid() {
         Group panel = new Group();
         for (int y = 0; y != this.size; y++) {
@@ -115,8 +108,6 @@ public class TicTacToe extends Application {
         }
         return panel;
     }
-
-
     @Override
     public void start(Stage stage) {
         BorderPane border = new BorderPane();
